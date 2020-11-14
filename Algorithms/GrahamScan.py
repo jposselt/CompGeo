@@ -30,7 +30,7 @@ def grahamScan(points):
     Calculates the convex hull of a set of 2D points using Graham's scan algorithm
 
         Parameters:
-                points (list): The
+                points (list): List of 2D points
         Returns:
                 result (tuple): First element is a list of points that form the convex hull.
                                 Second element is a list of lists of points that each represent
@@ -40,8 +40,8 @@ def grahamScan(points):
     steps = []
 
     if (n > 2):
-        # Sort points lexically by by x- and y-coordinates (items 1 and 2 in the named tuple)
-        points.sort(key = operator.itemgetter(1, 2))
+        # Sort points lexically by by x- and y-coordinates
+        points.sort(key = operator.attrgetter('x', 'y'))
 
         Lupper = [points[0], points[1]]
         for i in range(2,n):
@@ -92,4 +92,4 @@ def grahamScan(points):
         return (Lupper, steps)
 
     else:
-        return (points, [])
+        return (points, steps)
