@@ -17,15 +17,13 @@ def switch_scene(event):
     plt.clf()
 
     if (switch_scene.counter == len(switch_scene.steps)):
-        # algorithm finished: draw hull lines and hull point labels
+        # algorithm finished: draw hull lines
         if (len(switch_scene.hull) > 0):
             x = [p.x for p in switch_scene.hull]
             y = [p.y for p in switch_scene.hull]
             x.append(switch_scene.hull[0].x)
             y.append(switch_scene.hull[0].y)
             plt.plot(x, y)
-            for item in switch_scene.hull:
-                item.show(plt,True)
     elif (switch_scene.counter >= 0):
         # draw current state of the algorithm
         state = switch_scene.steps[switch_scene.counter]
@@ -37,6 +35,11 @@ def switch_scene(event):
     # always draw input data
     for item in data:
         item.show(plt)
+
+    # draw hull points with labels and different color
+    if (switch_scene.counter == len(switch_scene.steps)):
+        for item in switch_scene.hull:
+                item.show(plt,True,'r')
 
     # update display
     plt.draw()
