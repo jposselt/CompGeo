@@ -20,22 +20,9 @@ def direction(p1, p2, p3):
     return v1[0]*v2[1] - v1[1]*v2[0] # cross product
 
 def distanceSquare(p1, p2):
-    '''
-    Returns the squared distance between two points
-    '''
     return (p2.x - p1.x)**2 + (p2.y - p1.y)**2
 
 def grahamScan(points):
-    '''
-    Calculates the convex hull of a set of 2D points using Graham's scan algorithm
-
-        Parameters:
-                points (list): List of 2D points
-        Returns:
-                result (tuple): First element is a list of points that form the convex hull.
-                                Second element is a list of lists of points that each represent
-                                a processing step of the algorithm.
-    '''
     n = len(points)
     steps = []
 
@@ -53,11 +40,8 @@ def grahamScan(points):
                 if (d < 0): # left turn
                     Lupper.remove(Lupper[-2])
                     steps.append(Lupper.copy())
-                elif (d == 0): # collinear
-                    if (distanceSquare(Lupper[-3], Lupper[-2]) <= distanceSquare(Lupper[-3], Lupper[-1]) ):
-                        Lupper.remove(Lupper[-2])
-                    else:
-                        Lupper.remove(Lupper[-1])
+                elif (distanceSquare(Lupper[-3], Lupper[-2]) == 0 or distanceSquare(Lupper[-2], Lupper[-1]) == 0):
+                    Lupper.remove(Lupper[-2])
                 else:
                     break
 
@@ -75,14 +59,8 @@ def grahamScan(points):
                     step = Lupper.copy()
                     step.extend(Llower[1:])
                     steps.append(step)
-                elif (d == 0): # collinear
-                    if (distanceSquare(Llower[-3], Llower[-2]) <= distanceSquare(Llower[-3], Llower[-1]) ):
-                        Llower.remove(Llower[-2])
-                    else:
-                        Llower.remove(Llower[-1])
-                    step = Lupper.copy()
-                    step.extend(Llower[1:])
-                    steps.append(step)
+                elif (distanceSquare(Llower[-3], Llower[-2]) == 0 or distanceSquare(Llower[-2], Llower[-1]) == 0):
+                    Llower.remove(Llower[-2])
                 else:
                     break
 
