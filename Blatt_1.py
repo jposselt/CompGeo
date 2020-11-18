@@ -58,6 +58,10 @@ if __name__ == '__main__':
     # calculate convex hull
     hull, steps = grahamScan(data)
 
+    # print (CW) ordered hull point coordinates
+    for p in hull:
+        print('({}, {})'.format(p.x, p.y))
+
     # configure callback function
     switch_scene.counter = -1
     switch_scene.data = data
